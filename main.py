@@ -54,8 +54,8 @@ class _Orders:
 
 
 class Repository:
-    def __init__(self):
-        self.connection = sqlite3.connect('database.db')
+    def __init__(self, database):
+        self.connection = sqlite3.connect(database)
         self.hats = _Hats(self.connection)
         self.suppliers = _Suppliers(self.connection)
         self.orders = _Orders(self.connection)
@@ -191,7 +191,7 @@ def insert_to_DB(lines, insert_function, obj_type):
 
 
 def main():
-    repo = Repository()
+    repo = Repository(sys.argv[4])
     repo.create_tables()
     read_conf_file_to_database(repo)
     handle_orders(repo)
